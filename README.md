@@ -7,7 +7,9 @@
 	
 # Como executar compose
 
-## Comando: "docker compose up -d --build" - Comando utilizado para criar um docker compose e já rodar o mesmo em segundo plano
+## Subir o container
+```bash
+docker compose up -d --build
 
 # Endpoints CRUD
 
