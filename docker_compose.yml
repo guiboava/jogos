@@ -11,7 +11,17 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "pgdata:/var/lib/postgresql/data"
+      - postgres_data:/var/lib/postgresql/data
+  
+  api:
+    build: ./api
+    container_name: games_api
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    command: npm run start:dev  
 
 volumes:
   pgdata:
