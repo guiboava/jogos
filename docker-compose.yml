@@ -1,0 +1,45 @@
+version: '3.9'
+
+services: 
+  postgres:
+    image: postgres:16
+    container_name: meu_postgres
+    environment:
+      POSTGRESS_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  api:
+    build: ./Back-end
+    container_name: games_api
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    networks:
+      apizdb
+      apizfront
+    command: npm run start:dev  
+
+  front:
+    build: ./front
+    container_name: games-api
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    networks:
+      apizfront
+
+volumes:
+  pgdata:
+
+networks:
+  apizdb:
+  apizfront:
+  
